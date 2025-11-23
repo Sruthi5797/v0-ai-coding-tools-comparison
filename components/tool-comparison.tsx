@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { Card } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { toolsData, toolsList } from "@/lib/comparison-data"
@@ -87,11 +88,13 @@ export function ToolComparison() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <Tabs defaultValue="overview" className="w-full">
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-8 overflow-x-auto">
               <TabsList className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="pricing">Pricing</TabsTrigger>
-                <TabsTrigger value="benchmarks">Benchmarks</TabsTrigger>
+                <TabsTrigger value="deployment">Deployment & Scaling</TabsTrigger>
+                <TabsTrigger value="integrations">Integrations</TabsTrigger>
+                <TabsTrigger value="support">Support & Community</TabsTrigger>
                 <TabsTrigger value="faq">FAQ</TabsTrigger>
               </TabsList>
             </div>
@@ -112,11 +115,27 @@ export function ToolComparison() {
               </div>
             </TabsContent>
 
-            {/* Benchmarks Tab */}
-            <TabsContent value="benchmarks">
+            {/* Deployment & Scaling Tab */}
+            <TabsContent value="deployment">
               <div className="grid md:grid-cols-2 gap-6">
-                <BenchmarkCard title={data1.name} benchmarks={data1.benchmarks} />
-                <BenchmarkCard title={data2.name} benchmarks={data2.benchmarks} />
+                <DeploymentCard title={data1.name} deployment={data1.deployment} />
+                <DeploymentCard title={data2.name} deployment={data2.deployment} />
+              </div>
+            </TabsContent>
+
+            {/* Integrations Tab */}
+            <TabsContent value="integrations">
+              <div className="grid md:grid-cols-2 gap-6">
+                <IntegrationsCard title={data1.name} integrations={data1.integrations} />
+                <IntegrationsCard title={data2.name} integrations={data2.integrations} />
+              </div>
+            </TabsContent>
+
+            {/* Support & Community Tab */}
+            <TabsContent value="support">
+              <div className="grid md:grid-cols-2 gap-6">
+                <SupportCard title={data1.name} support={data1.support} />
+                <SupportCard title={data2.name} support={data2.support} />
               </div>
             </TabsContent>
 
@@ -182,25 +201,82 @@ function PricingCard({ title, pricing }: { title: string; pricing: { free: strin
   )
 }
 
-function BenchmarkCard({ title, benchmarks }: { title: string; benchmarks: Record<string, string> }) {
+function DeploymentCard({ title, deployment }: { title: string; deployment: { infrastructure: string[]; speed: string; regions: string } }) {
   return (
     <Card className="p-8 bg-slate-800/40 backdrop-blur-sm border-slate-700/50">
       <h3 className="text-2xl font-bold mb-6 text-green-400">{title}</h3>
       <div className="space-y-4">
-        {Object.entries(benchmarks).map(([key, value]) => (
-          <div key={key}>
-            <div className="flex justify-between mb-2">
-              <span className="font-medium capitalize text-slate-200">{key.replace(/([A-Z])/g, ' $1').trim()}</span>
-              <span className="text-slate-400">{value}</span>
-            </div>
-            <div className="h-2 bg-slate-700/50 rounded-full overflow-hidden">
-              <div 
-                className="h-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" 
-                style={{ width: `${parseInt(value)}%` }}
-              />
-            </div>
+        <div>
+          <h4 className="font-semibold mb-3 text-slate-200">Infrastructure</h4>
+          <ul className="space-y-2 text-sm text-slate-400">
+            {deployment.infrastructure.map((item, i) => (
+              <li key={i} className="flex items-start gap-2">
+                <span className="text-green-400 mt-1">✓</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="pt-4 border-t border-slate-700/50">
+          <p className="text-sm text-slate-300 mb-2"><span className="font-semibold text-green-400">Speed:</span> {deployment.speed}</p>
+          <p className="text-sm text-slate-300"><span className="font-semibold text-green-400">Regions:</span> {deployment.regions}</p>
+        </div>
+      </div>
+    </Card>
+  )
+}
+
+function IntegrationsCard({ title, integrations }: { title: string; integrations: { versionControl: string[]; frameworks: string[]; databases: string[] } }) {
+  return (
+    <Card className="p-8 bg-slate-800/40 backdrop-blur-sm border-slate-700/50">
+      <h3 className="text-2xl font-bold mb-6 text-pink-400">{title}</h3>
+      <div className="space-y-4">
+        <div>
+          <h4 className="font-semibold mb-2 text-slate-200">Version Control</h4>
+          <div className="flex flex-wrap gap-2">
+            {integrations.versionControl.map((item, i) => (
+              <Badge key={i} className="bg-pink-500/20 text-pink-300 border-pink-500/30">{item}</Badge>
+            ))}
           </div>
-        ))}
+        </div>
+        <div>
+          <h4 className="font-semibold mb-2 text-slate-200">Frameworks</h4>
+          <div className="flex flex-wrap gap-2">
+            {integrations.frameworks.map((item, i) => (
+              <Badge key={i} className="bg-blue-500/20 text-blue-300 border-blue-500/30">{item}</Badge>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h4 className="font-semibold mb-2 text-slate-200">Databases</h4>
+          <div className="flex flex-wrap gap-2">
+            {integrations.databases.map((item, i) => (
+              <Badge key={i} className="bg-purple-500/20 text-purple-300 border-purple-500/30">{item}</Badge>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Card>
+  )
+}
+
+function SupportCard({ title, support }: { title: string; support: { documentation: string; community: string; customerSupport: string } }) {
+  return (
+    <Card className="p-8 bg-slate-800/40 backdrop-blur-sm border-slate-700/50">
+      <h3 className="text-2xl font-bold mb-6 text-amber-400">{title}</h3>
+      <div className="space-y-4">
+        <div className="pb-4 border-b border-slate-700/50">
+          <h4 className="font-semibold mb-2 text-slate-200">Documentation</h4>
+          <p className="text-sm text-slate-400">{support.documentation}</p>
+        </div>
+        <div className="pb-4 border-b border-slate-700/50">
+          <h4 className="font-semibold mb-2 text-slate-200">Community</h4>
+          <p className="text-sm text-slate-400">{support.community}</p>
+        </div>
+        <div>
+          <h4 className="font-semibold mb-2 text-slate-200">Customer Support</h4>
+          <p className="text-sm text-slate-400">{support.customerSupport}</p>
+        </div>
       </div>
     </Card>
   )
