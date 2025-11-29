@@ -4,6 +4,7 @@ import { Hero } from "@/components/hero"
 import { Features } from "@/components/features"
 import { ToolComparison } from "@/components/tool-comparison"
 import { UserInsights } from "@/components/user-insights"
+import { ComparisonFAQ } from "@/components/comparison-faq"
 import { Resources } from "@/components/resources"
 import { Footer } from "@/components/footer"
 
@@ -14,6 +15,7 @@ export default function Home() {
       <Features />
       <ToolComparison />
       <UserInsights />
+      <ComparisonFAQ />
       <Resources />
       <Footer />
     </main>

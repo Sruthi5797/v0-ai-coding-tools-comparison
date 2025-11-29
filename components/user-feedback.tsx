@@ -35,18 +35,29 @@ const feedbackCategories = [
 
 export function UserFeedback() {
   return (
-    <section className="border-b border-border bg-muted/30">
-      <div className="container mx-auto px-4 py-16 md:py-24">
+    <section className="relative border-b border-slate-800/50 overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-transparent to-purple-500/5" />
+      
+      <div className="container relative mx-auto px-4 py-16 md:py-24">
         <div className="mx-auto max-w-5xl">
-          <h2 className="mb-12 text-center text-3xl font-bold text-foreground md:text-4xl">Based on User Feedback</h2>
+          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl bg-gradient-to-r from-blue-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+            Based on User Feedback
+          </h2>
+          <p className="mb-12 text-center text-slate-400">
+            Real insights from developers using AI coding tools
+          </p>
           <div className="grid gap-6 md:grid-cols-2">
             {feedbackCategories.map((item, index) => (
-              <Card key={index} className="border-border">
+              <Card 
+                key={index} 
+                className="border-slate-700/50 bg-slate-800/40 backdrop-blur-sm hover:bg-slate-800/60 hover:border-blue-500/30 transition-all duration-300"
+              >
                 <CardHeader>
-                  <CardTitle className="text-lg text-foreground">{item.question}</CardTitle>
+                  <CardTitle className="text-lg text-slate-200">{item.question}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm leading-relaxed text-muted-foreground">{item.summary}</p>
+                  <p className="text-sm leading-relaxed text-slate-400">{item.summary}</p>
                 </CardContent>
               </Card>
             ))}

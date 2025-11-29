@@ -35,17 +35,31 @@ const faqs = [
 
 export function ComparisonFAQ() {
   return (
-    <section className="border-b border-border">
-      <div className="container mx-auto px-4 py-16 md:py-24">
+    <section className="relative border-b border-slate-800/50 overflow-hidden">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 via-transparent to-orange-500/5" />
+      
+      <div className="container relative mx-auto px-4 py-16 md:py-24">
         <div className="mx-auto max-w-3xl">
-          <h2 className="mb-12 text-center text-3xl font-bold text-foreground md:text-4xl">
+          <h2 className="mb-4 text-center text-3xl font-bold md:text-4xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-400 bg-clip-text text-transparent">
             Frequently Asked Questions
           </h2>
-          <Accordion type="single" collapsible className="w-full">
+          <p className="mb-12 text-center text-slate-400">
+            Everything you need to know about AI coding tools
+          </p>
+          <Accordion type="single" collapsible className="w-full space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left text-foreground">{faq.question}</AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">{faq.answer}</AccordionContent>
+              <AccordionItem 
+                key={index} 
+                value={`item-${index}`}
+                className="border border-slate-700/50 rounded-lg bg-slate-800/40 backdrop-blur-sm px-6 hover:bg-slate-800/60 hover:border-amber-500/30 transition-all duration-300"
+              >
+                <AccordionTrigger className="text-left text-slate-200 hover:text-amber-400 transition-colors py-4">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-slate-400 pb-4">
+                  {faq.answer}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

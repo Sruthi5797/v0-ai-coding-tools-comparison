@@ -30,7 +30,7 @@ export function ToolComparison() {
           <div className="flex items-center justify-center gap-2 text-sm text-slate-500">
             <Home className="h-4 w-4" />
             <ChevronRight className="h-4 w-4" />
-            <span>Models</span>
+            <span>Tools</span>
             <ChevronRight className="h-4 w-4" />
             <span>Compare</span>
             <ChevronRight className="h-4 w-4" />
@@ -42,7 +42,7 @@ export function ToolComparison() {
               Compare {tool1} vs {tool2}
             </h1>
             <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto text-balance leading-relaxed">
-              Get a detailed comparison of AI language models including features, pricing, API costs, performance benchmarks, and real-world capabilities to help you choose the right tool for your needs.
+              Get a detailed comparison of AI website builders including features, pricing, deployment options, integrations, and support to help you choose the right platform for building your applications.
             </p>
           </div>
 
@@ -95,7 +95,6 @@ export function ToolComparison() {
                 <TabsTrigger value="deployment">Deployment & Scaling</TabsTrigger>
                 <TabsTrigger value="integrations">Integrations</TabsTrigger>
                 <TabsTrigger value="support">Support & Community</TabsTrigger>
-                <TabsTrigger value="faq">FAQ</TabsTrigger>
               </TabsList>
             </div>
 
@@ -136,14 +135,6 @@ export function ToolComparison() {
               <div className="grid md:grid-cols-2 gap-6">
                 <SupportCard title={data1.name} support={data1.support} />
                 <SupportCard title={data2.name} support={data2.support} />
-              </div>
-            </TabsContent>
-
-            {/* FAQ Tab */}
-            <TabsContent value="faq">
-              <div className="grid md:grid-cols-2 gap-6">
-                <FAQCard title={data1.name} faqs={data1.faq} />
-                <FAQCard title={data2.name} faqs={data2.faq} />
               </div>
             </TabsContent>
           </Tabs>
@@ -277,22 +268,6 @@ function SupportCard({ title, support }: { title: string; support: { documentati
           <h4 className="font-semibold mb-2 text-slate-200">Customer Support</h4>
           <p className="text-sm text-slate-400">{support.customerSupport}</p>
         </div>
-      </div>
-    </Card>
-  )
-}
-
-function FAQCard({ title, faqs }: { title: string; faqs: any[] }) {
-  return (
-    <Card className="p-8 bg-slate-800/40 backdrop-blur-sm border-slate-700/50">
-      <h3 className="text-2xl font-bold mb-6 text-amber-400">{title}</h3>
-      <div className="space-y-4">
-        {faqs.map((faq, i) => (
-          <div key={i} className="pb-4 border-b border-slate-700/50 last:border-0">
-            <h4 className="font-semibold mb-2 text-slate-200">{faq.q}</h4>
-            <p className="text-sm text-slate-400">{faq.a}</p>
-          </div>
-        ))}
       </div>
     </Card>
   )
